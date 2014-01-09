@@ -262,6 +262,8 @@ module SidekiqStatus
       (at.to_f / total.to_f * 100).round
     rescue ZeroDivisionError
       0
+    rescue FloatDomainError
+      0
     end
 
     # @param [Fixnum] at Report the progress of a job which is tracked by the current {SidekiqStatus::Container}
