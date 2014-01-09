@@ -259,11 +259,13 @@ module SidekiqStatus
 
     # @return [Integer] Job progress in percents (reported solely by {SidekiqStatus::Worker job})
     def pct_complete
-      (at.to_f / total.to_f * 100).round
-    rescue ZeroDivisionError
-      0
-    rescue FloatDomainError
-      0
+      begin
+        (at.to_f / total.to_f * 100).round
+      rescue ZeroDivisionError
+        0
+      rescue FloatDomainError
+        0
+      end
     end
 
     # @param [Fixnum] at Report the progress of a job which is tracked by the current {SidekiqStatus::Container}
